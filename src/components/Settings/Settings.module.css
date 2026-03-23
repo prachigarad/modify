@@ -1,0 +1,209 @@
+.container {
+  padding: 0 16px 16px;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.avatarLg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--mood-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.profileName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.editBtn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--mood-accent);
+  cursor: pointer;
+  font-family: var(--font-body);
+  text-decoration: underline;
+}
+
+.nameEdit {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 240px;
+}
+
+.nameInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid var(--mood-accent);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  outline: none;
+}
+
+.saveNameBtn {
+  padding: 8px 16px;
+  background: var(--mood-gradient);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Settings list */
+.settingsList {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.settingRow:last-child { border-bottom: none; }
+
+.settingLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.settingIcon { font-size: 20px; }
+
+.settingTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.settingDesc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Toggle */
+.toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.toggleOn {
+  background: var(--mood-accent);
+}
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.3s;
+}
+.toggleOn .toggleThumb {
+  transform: translateX(20px);
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--mood-accent-soft);
+  color: var(--mood-accent);
+}
+
+.dangerBtn {
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid #E24B4A;
+  background: transparent;
+  color: #E24B4A;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.dangerBtn:hover { background: #FCEBEB; }
+
+.toast {
+  background: #EAF3DE;
+  color: #3B6D11;
+  border: 1px solid #97C459;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* About */
+.aboutCard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+.aboutTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.aboutDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.aboutVersion {
+  font-size: 11px;
+  color: var(--text-muted);
+}
