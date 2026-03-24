@@ -4,7 +4,6 @@ import { storage, DiaryEntry, MOODS } from '@/lib/data';
 import styles from './Diary.module.css';
 
 const EMOJIS = ['😊', '😢', '😌', '😤', '🥰', '😴', '🤩', '😰'];
-
 export default function Diary() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [text, setText] = useState('');
@@ -29,7 +28,11 @@ export default function Diary() {
       text: text.trim(),
       emoji: selectedEmoji,
       mood: selectedEmoji,
-      date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+      date: new Date().toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }),
       timestamp: Date.now(),
     };
     const updated = [newEntry, ...entries];
@@ -39,12 +42,12 @@ export default function Diary() {
   };
 
   const deleteEntry = (id: string) => {
-    const updated = entries.filter(e => e.id !== id);
+    const updated = entries.filter((e) => e.id !== id);
     setEntries(updated);
     storage.setEntries(updated);
   };
 
-  const filtered = entries.filter(e => {
+  const filtered = entries.filter((e) => {
     const matchFilter = filter === 'all' || e.emoji === filter;
     const matchSearch = e.text.toLowerCase().includes(search.toLowerCase());
     return matchFilter && matchSearch;
@@ -58,7 +61,7 @@ export default function Diary() {
           <span className={styles.dateLabel}>{today}</span>
         </div>
         <div className={styles.emojiRow}>
-          {EMOJIS.map(e => (
+          {EMOJIS.map((e) => (
             <button
               key={e}
               className={`${styles.emojiBtn} ${selectedEmoji === e ? styles.emojiSelected : ''}`}
@@ -70,12 +73,16 @@ export default function Diary() {
         </div>
         <textarea
           className={styles.textarea}
-          placeholder="What's on your mind today?"
+          placeholder="What's on your mind today? please press Window + . to open emoji picker"
           value={text}
-          onChange={e => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value)}
           rows={4}
         />
-        <button className="btn-primary" onClick={saveEntry} disabled={!text.trim()}>
+        <button
+          className="btn-primary"
+          onClick={saveEntry}
+          disabled={!text.trim()}
+        >
           Save Entry
         </button>
       </div>
@@ -86,7 +93,7 @@ export default function Diary() {
         type="text"
         placeholder="Search entries..."
         value={search}
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
 
       {/* Filter by emoji */}
@@ -97,7 +104,7 @@ export default function Diary() {
         >
           All
         </button>
-        {EMOJIS.slice(0, 5).map(e => (
+        {EMOJIS.slice(0, 5).map((e) => (
           <button
             key={e}
             className={`${styles.filterBtn} ${filter === e ? styles.filterActive : ''}`}
@@ -109,22 +116,31 @@ export default function Diary() {
       </div>
 
       {/* Entries */}
-      <p className="section-label">{filtered.length} {filtered.length === 1 ? 'entry' : 'entries'}</p>
+      <p className="section-label">
+        {filtered.length} {filtered.length === 1 ? 'entry' : 'entries'}
+      </p>
       <div className={styles.entriesList}>
         {filtered.length === 0 && (
           <div className={styles.emptyState}>
             <p className={styles.emptyEmoji}>📓</p>
-            <p className={styles.emptyText}>No entries yet. Write your first one!</p>
+            <p className={styles.emptyText}>
+              No entries yet. Write your first one!
+            </p>
           </div>
         )}
-        {filtered.map(entry => (
+        {filtered.map((entry) => (
           <div key={entry.id} className={styles.entryCard}>
             <div className={styles.entryHeader}>
               <div className={styles.entryMeta}>
                 <span className={styles.entryEmoji}>{entry.emoji}</span>
                 <span className={styles.entryDate}>{entry.date}</span>
               </div>
-              <button className={styles.deleteBtn} onClick={() => deleteEntry(entry.id)}>✕</button>
+              <button
+                className={styles.deleteBtn}
+                onClick={() => deleteEntry(entry.id)}
+              >
+                ✕
+              </button>
             </div>
             <p className={styles.entryText}>{entry.text}</p>
           </div>

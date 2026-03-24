@@ -7,9 +7,8 @@ interface TopBarProps {
   title?: string;
   subtitle?: string;
 }
-
 export default function TopBar({ title, subtitle }: TopBarProps) {
-  const [username, setUsername] = useState('Friend');
+  const [username, setUsername] = useState('ME');
 
   useEffect(() => {
     setUsername(storage.getUsername());

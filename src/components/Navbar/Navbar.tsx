@@ -4,16 +4,15 @@ import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const NAV_ITEMS = [
-  { href: '/',        label: 'Music',   icon: '♪' },
-  { href: '/diary',   label: 'Diary',   icon: '📓' },
-  { href: '/relax',   label: 'Relax',   icon: '🌿' },
+  { href: '/', label: 'Music', icon: '♪' },
+  { href: '/diary', label: 'Diary', icon: '📓' },
+  { href: '/relax', label: 'Relax', icon: '🌿' },
   { href: '/tracker', label: 'Tracker', icon: '📊' },
-  { href: '/settings',label: 'Settings',icon: '⚙️' },
+  { href: '/settings', label: 'Settings', icon: '⚙️' },
+  { href: '/about', label: 'About', icon: '👤' },
 ];
-
 export default function Navbar() {
   const pathname = usePathname();
-
   return (
     <nav className={styles.nav}>
       {NAV_ITEMS.map((item) => {
