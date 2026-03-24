@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useAuth } from '@/hooks/useAuth';
 import styles from './RatingPopup.module.css';
 
 const LABELS = [
@@ -21,6 +22,8 @@ interface Rating {
 }
 
 export default function RatingPopup() {
+  const { user } = useAuth();
+
   const [visible, setVisible] = useState(false);
   const [showWall, setShowWall] = useState(false);
   const [rating, setRatingVal] = useState(0);
@@ -61,16 +64,22 @@ export default function RatingPopup() {
       setError('Please select a star first!');
       return;
     }
-    if (!name.trim()) {
+
+    // Use logged-in user name OR typed name
+    const submitterName = user ? user.name : name.trim();
+    if (!submitterName) {
       setError('Please enter your name!');
       return;
     }
+
     setLoading(true);
     setError('');
 
     const { error: dbError } = await supabase
       .from('ratings')
-      .insert([{ name: name.trim(), stars: rating, comment: comment.trim() }]);
+      .insert([
+        { name: submitterName, stars: rating, comment: comment.trim() },
+      ]);
 
     if (dbError) {
       setError('Something went wrong. Try again!');
@@ -137,7 +146,23 @@ export default function RatingPopup() {
                     {r.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div className={styles.raterInfo}>
-                    <p className={styles.raterName}>{r.name}</p>
+                    <p className={styles.raterName}>
+                      {r.name}
+                      {user?.name === r.name && (
+                        <span
+                          style={{
+                            fontSize: '10px',
+                            marginLeft: '6px',
+                            background: '#EDE8FF',
+                            color: '#534AB7',
+                            borderRadius: '10px',
+                            padding: '1px 7px',
+                          }}
+                        >
+                          You
+                        </span>
+                      )}
+                    </p>
                     <div className={styles.raterStars}>
                       {[1, 2, 3, 4, 5].map((s) => (
                         <span
@@ -178,6 +203,32 @@ export default function RatingPopup() {
             <div className={styles.icon}>🎵</div>
             <h2 className={styles.title}>Enjoying Moodify?</h2>
             <p className={styles.sub}>Rate your experience!</p>
+
+            {/* Show logged-in user greeting OR name input */}
+            {user ? (
+              <p
+                style={{
+                  fontSize: '13px',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '12px',
+                  fontWeight: 500,
+                }}
+              >
+                Rating as <strong>{user.name}</strong>
+              </p>
+            ) : (
+              <input
+                className={styles.inputBox}
+                type="text"
+                placeholder="Your name *"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setError('');
+                }}
+              />
+            )}
+
             <div className={styles.stars}>
               {[1, 2, 3, 4, 5].map((s) => (
                 <button
@@ -204,16 +255,7 @@ export default function RatingPopup() {
                     ? LABELS[rating]
                     : 'Tap a star to rate')}
             </p>
-            <input
-              className={styles.inputBox}
-              type="text"
-              placeholder="Your name *"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setError('');
-              }}
-            />
+
             <textarea
               className={styles.textarea}
               placeholder="Tell us what you think... (optional)"
@@ -235,7 +277,9 @@ export default function RatingPopup() {
         ) : (
           <div className={styles.thankWrap}>
             <div className={styles.thankIcon}>🎉</div>
-            <h2 className={styles.thankTitle}>Thank you, {name}!</h2>
+            <h2 className={styles.thankTitle}>
+              Thank you, {user ? user.name : name}!
+            </h2>
             <div className={styles.thankStars}>
               {[1, 2, 3, 4, 5].map((s) => (
                 <span
