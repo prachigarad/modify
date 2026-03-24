@@ -342,8 +342,8 @@ export const storage = {
     localStorage.setItem('moodify-theme', t);
   },
   getUsername: (): string => {
-    if (typeof window === 'undefined') return 'Friend';
-    return localStorage.getItem('moodify-username') || 'Friend';
+    if (typeof window === 'undefined') return 'User';
+    return localStorage.getItem('moodify-username') || 'User';
   },
   setUsername: (name: string) => {
     if (typeof window === 'undefined') return;

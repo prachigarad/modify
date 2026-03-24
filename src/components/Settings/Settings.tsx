@@ -92,7 +92,8 @@ export default function Settings() {
   };
 
   const saveName = () => {
-    const name = nameInput.trim() || 'Friend';
+    const name = user?.name ? user.name : nameInput.trim() || 'User';
+
     setUsername(name);
     storage.setUsername(name);
     setEditingName(false);

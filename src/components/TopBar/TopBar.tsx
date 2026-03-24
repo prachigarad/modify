@@ -8,10 +8,11 @@ interface TopBarProps {
   subtitle?: string;
 }
 export default function TopBar({ title, subtitle }: TopBarProps) {
-  const [username, setUsername] = useState('ME');
+  const [username, setUsername] = useState('User');
 
   useEffect(() => {
-    setUsername(storage.getUsername());
+    const storedUsername = storage.getUsername();
+    setUsername(storedUsername || 'User');
   }, []);
 
   const initials = username.slice(0, 2).toUpperCase();
