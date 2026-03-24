@@ -73,7 +73,7 @@ export default function Diary() {
         </div>
         <textarea
           className={styles.textarea}
-          placeholder="What's on your mind today? please press Window + . to open emoji picker"
+          placeholder="What's on your mind today?"
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={4}
